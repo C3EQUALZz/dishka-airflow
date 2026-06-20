@@ -1,7 +1,70 @@
+[build-system]
+requires = [
+    "hatchling==1.29.0",
+    "hatch-vcs==0.5.0",
+]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/dishka_airflow/_version.py"
+
 [project]
 name = "dishka-airflow"
-version = "0.1.0"
-description = "Add your description here"
+dynamic = ["version"]
+description = "Integration package for Dishka DI and airflow"
 readme = "README.md"
-requires-python = ">=3.14"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+
+authors = [
+    { name = "Danil Kovalev", email = "dan.kovalev2013@gmail.com" },
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries",
+    "Typing :: Typed",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
+requires-python = ">=3.10"
+
 dependencies = []
+
+[project.urls]
+Source = "https://github.com/C3EQUALZz/dishka-airflow"
+Homepage = "https://github.com/C3EQUALZz/dishka-airflow"
+Tracker = "https://github.com/C3EQUALZz/dishka-airflow/issues"
+
+[dependency-groups]
+dev = [
+    {include-group = "lint"},
+    {include-group = "test"},
+    "prek>=0.2.5",
+]
+lint = [
+    "bandit>=1.8.6",
+    "codespell>=2.4.1",
+    "mypy>=1.18.2",
+    "ruff>=0.14.0",
+    "semgrep>=1.139.0",
+    "zizmor>=1.14.2",
+]
+test = [
+    "nox>=2025.5.1",
+    "pytest>=8.4.2",
+    "pytest-asyncio>=1.2.0",
+    "pytest-cov>=7.0.0",
+]
+
+[tool.bandit]
+skips = ["B101"]
