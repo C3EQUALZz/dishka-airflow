@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dishka-airflow-example-app"
+version = "0.1.0"
+description = "Layered (domain/application/infrastructure) example app for dishka-airflow"
+requires-python = ">=3.10"
+dependencies = [
+    "dishka>=1.10.1",
+    "apache-airflow-task-sdk>=1.2.2",
+    "dishka-airflow",
+]
+
+[dependency-groups]
+lint = [
+    "import-linter>=2.0",
+    "mypy>=1.18.2",
+    "ruff>=0.14.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/myapp"]
+
+# dishka-airflow is unpublished; resolve it from the parent repository for
+# local `uv sync`. In the Docker image it is pip-installed beforehand, so this
+# source is ignored there.
+[tool.uv.sources]
+dishka-airflow = { path = "..", editable = true }
+
+# Enforce the clean-architecture layering: domain is innermost, application may
+# depend on domain, infrastructure may depend on both. Run with `lint-imports`.
+[tool.importlinter]
+root_package = "myapp"
+
+[[tool.importlinter.contracts]]
+name = "Layered architecture"
+type = "layers"
+layers = [
+    "myapp.infrastructure",
+    "myapp.application",
+    "myapp.domain",
+]

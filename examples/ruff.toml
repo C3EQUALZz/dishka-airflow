@@ -1,0 +1,69 @@
+# Standalone lint configuration for the example application.
+# Run from the examples/ directory: `ruff check` / `ruff format`.
+
+fix = true
+preview = true
+
+line-length = 90
+indent-width = 4
+
+target-version = "py310"
+
+include = [
+    "src/myapp/**/*.py",
+    "dags/**/*.py",
+    "plugins/**/*.py",
+    "pyproject.toml",
+]
+
+[format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = false
+
+[lint]
+select = [
+    "ALL",
+]
+
+ignore = [
+    "ANN401",
+
+    "EM101",
+    "EM102",
+
+    "CPY",
+    "PLR6301",
+
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D106",
+    "D107",
+    "DOC201",
+    "DOC202",
+    "DOC402",
+    "DOC501",
+    "DOC502",
+
+    "COM812",
+]
+
+[lint.per-file-ignores]
+# DAG and plugin folders are path-discovered by Airflow, not importable
+# packages, and DAGs intentionally print to the task log.
+"dags/**/*.py" = ["INP001", "T201"]
+"plugins/**/*.py" = ["INP001"]
+
+[lint.isort]
+case-sensitive = true
+combine-as-imports = true
+force-wrap-aliases = true
+known-first-party = ["myapp"]
+
+[lint.pydocstyle]
+convention = "google"
+ignore-decorators = ["typing.overload"]

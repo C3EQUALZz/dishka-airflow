@@ -1,0 +1,42 @@
+name: dishka-airflow-example
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+  airflow:
+    build:
+      context: ..
+      dockerfile: examples/Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags
+      AIRFLOW__CORE__PLUGINS_FOLDER: /opt/airflow/plugins
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__API_AUTH__JWT_SECRET: example-jwt-secret
+    ports:
+      - "8080:8080"
+    volumes:
+      # dags/ and plugins/ are path-discovered by Airflow; the `myapp` package
+      # is pip-installed into the image (rebuild after editing it).
+      - ./dags:/opt/airflow/dags
+      - ./plugins:/opt/airflow/plugins
+    command: standalone
+
+volumes:
+  postgres-db:

@@ -1,0 +1,16 @@
+# BuildKit picks this up as the ignore file for examples/Dockerfile.
+# Paths are relative to the build context root (the repository root).
+.git
+.venv
+.ruff_cache
+.mypy_cache
+.pytest_cache
+.idea
+__pycache__
+*.pyc
+.coverage
+htmlcov
+dist
+build
+tests
+docs
