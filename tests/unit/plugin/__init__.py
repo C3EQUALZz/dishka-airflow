@@ -1,0 +1,1 @@
+"""DishkaPlugin wiring tests."""
