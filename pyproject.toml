@@ -38,7 +38,10 @@ classifiers = [
 
 requires-python = ">=3.10"
 
-dependencies = []
+dependencies = [
+    "dishka>=1.10.1",
+    "apache-airflow-task-sdk>=1.2.2",
+]
 
 [project.urls]
 Source = "https://github.com/C3EQUALZz/dishka-airflow"
@@ -68,3 +71,6 @@ test = [
 
 [tool.bandit]
 skips = ["B101"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
