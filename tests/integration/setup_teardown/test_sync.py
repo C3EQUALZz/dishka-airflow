@@ -97,7 +97,7 @@ async def test_teardown_with_on_failure_flag(
     app_provider: AppProvider,
     task_instance: TaskInstance,
 ) -> None:
-    @teardown(on_failure_fail_dagrun=True)
+    @teardown(on_failure_fail_dagrun=True)  # type: ignore[untyped-decorator]
     @inject
     def my_teardown(dep: FromDishka[RequestDep]) -> str:
         return str(dep)
