@@ -55,6 +55,7 @@ dev = [
     "prek>=0.2.5",
 ]
 lint = [
+    "apache-airflow-mypy>=0.1.0",
     "bandit>=1.8.6",
     "codespell>=2.4.1",
     "mypy>=1.18.2",

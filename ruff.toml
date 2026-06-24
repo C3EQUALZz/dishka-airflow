@@ -64,6 +64,7 @@ ignore = [
     "ARG001",
     "RUF029",
     "RUF045",
+    "SLF001",  # tests legitimately access private attrs fields (e.g. AssetDefinition._function)
 ]
 
 [lint.isort]
