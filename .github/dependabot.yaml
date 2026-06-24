@@ -1,0 +1,38 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 10
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  - package-ecosystem: uv
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 10
+    groups:
+      integration-targets:
+        patterns:
+          - "dishka"
+          - "apache-airflow"
+          - "apache-airflow-*"
+      pip:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "dishka"
+          - "apache-airflow"
+          - "apache-airflow-*"
