@@ -15,7 +15,7 @@ Though it is not required, you can use *dishka-airflow* integration. It features
 
 | Scope     | Airflow lifecycle                                                                   | Description                                                    |
 |-----------|-------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| `APP`     | Root container (lives for the process lifetime)                                     | Shared across all task runs.                                   |
+| `APP`     | Root container (lives for the subprocess lifetime)                                  | One instance per task subprocess.                              |
 | `REQUEST` | `on_task_instance_running` → `on_task_instance_success` / `on_task_instance_failed` | Opened once per task execution. Closed when the task finishes. |
 
 ## Supported Airflow features
