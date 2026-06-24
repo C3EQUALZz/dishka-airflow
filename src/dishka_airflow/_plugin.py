@@ -1,5 +1,7 @@
 """Airflow plugin that wires a dishka container into task execution."""
 
+import asyncio
+import atexit
 from typing import Any
 
 from airflow.sdk.plugins_manager import AirflowPlugin
@@ -22,6 +24,9 @@ class DishkaPlugin(AirflowPlugin):
             container = make_container(MyProvider())
 
     The container is read at subclass-definition time to build the listener.
+    For async containers an ``atexit`` handler is registered to ensure async
+    providers (e.g. ``AsyncEngine``, S3 clients) are properly disposed when
+    the task subprocess exits.
     """
 
     name = "dishka_plugin"
@@ -31,3 +36,5 @@ class DishkaPlugin(AirflowPlugin):
         super().__init_subclass__(**kwargs)
         if cls.container is not None:
             cls.listeners = [_DishkaListener(cls.container)]
+            if isinstance(cls.container, AsyncContainer):
+                atexit.register(lambda c=cls.container: asyncio.run(c.close()))

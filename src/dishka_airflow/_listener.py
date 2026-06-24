@@ -1,7 +1,7 @@
 """Pluggy listener bridging the Airflow task lifecycle to a dishka container."""
 
 import asyncio
-from typing import Any
+from typing import Any, Final
 
 from airflow.listeners import hookimpl
 from airflow.sdk import Context
@@ -23,7 +23,7 @@ class _DishkaListener:
     """
 
     def __init__(self, container: Container | AsyncContainer) -> None:
-        self._container = container
+        self._container: Final[Container | AsyncContainer] = container
 
     @hookimpl
     def on_task_instance_running(self, task_instance: TaskInstance) -> None:
