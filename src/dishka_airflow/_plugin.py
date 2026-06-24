@@ -10,6 +10,13 @@ from dishka import AsyncContainer, Container
 from dishka_airflow._listener import _DishkaListener
 
 
+def _close_container(container: AsyncContainer) -> None:
+    def _close() -> None:
+        asyncio.run(container.close())
+
+    atexit.register(_close)
+
+
 class DishkaPlugin(AirflowPlugin):
     """Airflow plugin that registers the dishka task lifecycle listener.
 
@@ -37,4 +44,4 @@ class DishkaPlugin(AirflowPlugin):
         if cls.container is not None:
             cls.listeners = [_DishkaListener(cls.container)]
             if isinstance(cls.container, AsyncContainer):
-                atexit.register(lambda c=cls.container: asyncio.run(c.close()))
+                _close_container(cls.container)

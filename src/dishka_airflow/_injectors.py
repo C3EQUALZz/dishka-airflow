@@ -1,6 +1,6 @@
 """The :func:`inject` decorator resolving dependencies inside Airflow tasks."""
 
-from collections.abc import Awaitable, Callable
+from collections.abc import Awaitable, Callable, Coroutine
 from inspect import iscoroutinefunction
 from typing import Any, overload
 
@@ -37,8 +37,8 @@ def _inject_async(
 
 @overload
 def inject(
-    func: Callable[..., Awaitable[ReturnT]],
-) -> Callable[..., Awaitable[ReturnT]]: ...
+    func: Callable[..., Coroutine[Any, Any, ReturnT]],
+) -> Callable[..., Coroutine[Any, Any, ReturnT]]: ...
 
 
 @overload

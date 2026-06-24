@@ -179,6 +179,18 @@ wheels = [
 ]
 
 [[package]]
+name = "apache-airflow-mypy"
+version = "0.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "mypy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e9/4c/12de8d40c31371ce93d52eb84a35dbd3e81ba77233def3a97dcc421a9abe/apache_airflow_mypy-0.1.0.tar.gz", hash = "sha256:92a24e7ff0042457b53491665240c80584002e0d1f0407525045cdca0cdf8c5f", size = 9116, upload-time = "2026-06-12T10:00:27.234Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7d/2b/ebbcd51358171ed38b6e86353d35ee5596227480b8044af897b7fbd03129/apache_airflow_mypy-0.1.0-py3-none-any.whl", hash = "sha256:6f6c6a6bab2ab4b75be041660d854135ffae8008094e00cdf7d3831b3acb6453", size = 11070, upload-time = "2026-06-12T10:00:26.178Z" },
+]
+
+[[package]]
 name = "apache-airflow-providers-common-compat"
 version = "1.15.0"
 source = { registry = "https://pypi.org/simple" }
@@ -929,6 +941,7 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "apache-airflow-mypy" },
     { name = "bandit" },
     { name = "codespell" },
     { name = "mypy" },
@@ -942,6 +955,7 @@ dev = [
     { name = "zizmor" },
 ]
 lint = [
+    { name = "apache-airflow-mypy" },
     { name = "bandit" },
     { name = "codespell" },
     { name = "mypy" },
@@ -964,6 +978,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "apache-airflow-mypy", specifier = ">=0.1.0" },
     { name = "bandit", specifier = ">=1.8.6" },
     { name = "codespell", specifier = ">=2.4.1" },
     { name = "mypy", specifier = ">=1.18.2" },
@@ -977,6 +992,7 @@ dev = [
     { name = "zizmor", specifier = ">=1.14.2" },
 ]
 lint = [
+    { name = "apache-airflow-mypy", specifier = ">=0.1.0" },
     { name = "bandit", specifier = ">=1.8.6" },
     { name = "codespell", specifier = ">=2.4.1" },
     { name = "mypy", specifier = ">=1.18.2" },
