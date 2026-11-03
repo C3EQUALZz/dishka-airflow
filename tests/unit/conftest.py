@@ -1,5 +1,5 @@
 import inspect
-from collections.abc import AsyncIterator
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
 from dishka import (
@@ -25,7 +25,7 @@ async def create_airflow_env(
     provider: AppProvider,
     *,
     use_async_container: bool,
-) -> AsyncIterator[tuple[AsyncContainer | Container, _DishkaListener]]:
+) -> AsyncGenerator[tuple[AsyncContainer | Container, _DishkaListener], None]:
     container: AsyncContainer | Container
     if use_async_container:
         container = make_async_container(provider, AirflowProvider())
