@@ -1,4 +1,4 @@
-from collections.abc import AsyncIterator
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 from typing import Any
 
@@ -38,7 +38,7 @@ def build_listener_manager(*listeners: object) -> Any:
 @asynccontextmanager
 async def async_env(
     *providers: Provider,
-) -> AsyncIterator[tuple[AsyncContainer, Any]]:
+) -> AsyncGenerator[tuple[AsyncContainer, Any], None]:
     container = make_async_container(*providers, AirflowProvider())
     manager = build_listener_manager(_DishkaListener(container))
     try:
@@ -50,7 +50,7 @@ async def async_env(
 @asynccontextmanager
 async def sync_env(
     *providers: Provider,
-) -> AsyncIterator[tuple[Container, Any]]:
+) -> AsyncGenerator[tuple[Container, Any], None]:
     container = make_container(*providers, AirflowProvider())
     manager = build_listener_manager(_DishkaListener(container))
     try:
